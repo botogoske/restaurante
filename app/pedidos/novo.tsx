@@ -36,10 +36,37 @@ const pratos: SelectOption[] = [
 ];
 
 const styles = StyleSheet.create({
-  safe: { flex: 1, backgroundColor: "#ffffff" },
-  header: { flexDirection: "row", alignItems: "center", marginBottom: 16 },
-  headerTitle: { fontSize: 20, fontWeight: "bold", color: "#0f172a", marginLeft: 8 },
-  gap: { gap: 16 },
+  safe: {
+    flex: 1,
+    backgroundColor: "hsl(40 20% 98%)",
+  },
+  header: {
+    flexDirection: "row",
+    alignItems: "center",
+    paddingHorizontal: 16,
+    paddingVertical: 12,
+    backgroundColor: "hsl(40 20% 98%)",
+    borderBottomWidth: 1,
+    borderBottomColor: "rgba(30, 25, 20, 0.06)",
+  },
+  headerTitle: {
+    fontSize: 17,
+    fontWeight: "600",
+    color: "hsl(20 15% 10%)",
+    marginLeft: 8,
+    letterSpacing: -0.02,
+  },
+  content: {
+    paddingHorizontal: 20,
+    paddingTop: 20,
+    paddingBottom: 32,
+  },
+  card: {
+    marginBottom: 0,
+  },
+  gap: {
+    gap: 16,
+  },
 });
 
 export default function NovoPedidoScreen() {
@@ -67,36 +94,42 @@ export default function NovoPedidoScreen() {
   return (
     <SafeAreaView style={styles.safe}>
       <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={{ flex: 1 }}>
+        <View style={styles.header}>
+          <Button variant="ghost" size="icon" onPress={() => router.back()}>
+            <Ionicons name="arrow-back" size={22} color="hsl(20 15% 10%)" />
+          </Button>
+          <Text style={styles.headerTitle}>Novo Pedido</Text>
+        </View>
         <ScrollView>
-          <View style={styles.header}>
-            <Button variant="ghost" size="icon" onPress={() => router.back()}>
-              <Ionicons name="arrow-back" size={24} color="#000" />
-            </Button>
-            <Text style={styles.headerTitle}>Novo Pedido</Text>
+          <View style={styles.content}>
+            <Card variant="elevated" style={styles.card}>
+              <CardHeader>
+                <CardTitle>Cadastro de Pedido</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <View style={styles.gap}>
+                  <Controller control={control} name="clienteId" render={({ field: { onChange, value } }) => (
+                    <Select label="Cliente" options={clientes} value={value} onValueChange={onChange} placeholder="Selecione o cliente" error={errors.clienteId?.message} />
+                  )} />
+                  <Controller control={control} name="mesa" render={({ field: { onChange, onBlur, value } }) => (
+                    <Input label="Número da Mesa" placeholder="1" value={value} onChangeText={onChange} onBlur={onBlur} error={errors.mesa?.message} keyboardType="numeric" />
+                  )} />
+                  <Controller control={control} name="pratoId" render={({ field: { onChange, value } }) => (
+                    <Select label="Prato" options={pratos} value={value} onValueChange={onChange} placeholder="Selecione o prato" error={errors.pratoId?.message} />
+                  )} />
+                  <Controller control={control} name="quantidade" render={({ field: { onChange, onBlur, value } }) => (
+                    <Input label="Quantidade" placeholder="1" value={value} onChangeText={onChange} onBlur={onBlur} error={errors.quantidade?.message} keyboardType="numeric" />
+                  )} />
+                  <Controller control={control} name="observacoes" render={({ field: { onChange, onBlur, value } }) => (
+                    <Input label="Observações (opcional)" placeholder="Sem cebola, ponto da carne, etc." value={value} onChangeText={onChange} onBlur={onBlur} error={errors.observacoes?.message} multiline />
+                  )} />
+                  <Button onPress={handleSubmit(onSubmit)} loading={loading} fullWidth>
+                    Cadastrar Pedido
+                  </Button>
+                </View>
+              </CardContent>
+            </Card>
           </View>
-          <Card>
-            <CardHeader><CardTitle>Cadastro de Pedido</CardTitle></CardHeader>
-            <CardContent>
-              <View style={styles.gap}>
-                <Controller control={control} name="clienteId" render={({ field: { onChange, value } }) => (
-                  <Select label="Cliente" options={clientes} value={value} onValueChange={onChange} placeholder="Selecione o cliente" error={errors.clienteId?.message} />
-                )} />
-                <Controller control={control} name="mesa" render={({ field: { onChange, onBlur, value } }) => (
-                  <Input label="Número da Mesa" placeholder="1" value={value} onChangeText={onChange} onBlur={onBlur} error={errors.mesa?.message} keyboardType="numeric" />
-                )} />
-                <Controller control={control} name="pratoId" render={({ field: { onChange, value } }) => (
-                  <Select label="Prato" options={pratos} value={value} onValueChange={onChange} placeholder="Selecione o prato" error={errors.pratoId?.message} />
-                )} />
-                <Controller control={control} name="quantidade" render={({ field: { onChange, onBlur, value } }) => (
-                  <Input label="Quantidade" placeholder="1" value={value} onChangeText={onChange} onBlur={onBlur} error={errors.quantidade?.message} keyboardType="numeric" />
-                )} />
-                <Controller control={control} name="observacoes" render={({ field: { onChange, onBlur, value } }) => (
-                  <Input label="Observações (opcional)" placeholder="Sem cebola, ponto da carne, etc." value={value} onChangeText={onChange} onBlur={onBlur} error={errors.observacoes?.message} multiline />
-                )} />
-                <Button onPress={handleSubmit(onSubmit)} loading={loading}>Cadastrar Pedido</Button>
-              </View>
-            </CardContent>
-          </Card>
         </ScrollView>
       </KeyboardAvoidingView>
     </SafeAreaView>

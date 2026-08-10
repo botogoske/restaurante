@@ -11,8 +11,8 @@ function Separator({ orientation = "horizontal", style }: SeparatorProps) {
     <View
       style={[
         orientation === "horizontal"
-          ? { height: 1, width: "100%", backgroundColor: "#e2e8f0" }
-          : { height: "100%", width: 1, backgroundColor: "#e2e8f0" },
+          ? { height: 1, width: "100%", backgroundColor: "rgba(30, 25, 20, 0.06)" }
+          : { height: "100%", width: 1, backgroundColor: "rgba(30, 25, 20, 0.06)" },
         style,
       ]}
     />

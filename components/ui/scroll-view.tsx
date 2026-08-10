@@ -5,7 +5,7 @@ const ScrollView = React.forwardRef<RNScrollView, ScrollViewProps>(
   ({ contentContainerStyle, ...props }, ref) => (
     <RNScrollView
       ref={ref}
-      contentContainerStyle={[{ padding: 16 }, contentContainerStyle]}
+      contentContainerStyle={[{ padding: 20 }, contentContainerStyle]}
       showsVerticalScrollIndicator={false}
       keyboardShouldPersistTaps="handled"
       {...props}

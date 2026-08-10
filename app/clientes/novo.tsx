@@ -24,10 +24,37 @@ const schema = z.object({
 type FormData = z.infer<typeof schema>;
 
 const styles = StyleSheet.create({
-  safe: { flex: 1, backgroundColor: "#ffffff" },
-  header: { flexDirection: "row", alignItems: "center", marginBottom: 16 },
-  headerTitle: { fontSize: 20, fontWeight: "bold", color: "#0f172a", marginLeft: 8 },
-  gap: { gap: 16 },
+  safe: {
+    flex: 1,
+    backgroundColor: "hsl(40 20% 98%)",
+  },
+  header: {
+    flexDirection: "row",
+    alignItems: "center",
+    paddingHorizontal: 16,
+    paddingVertical: 12,
+    backgroundColor: "hsl(40 20% 98%)",
+    borderBottomWidth: 1,
+    borderBottomColor: "rgba(30, 25, 20, 0.06)",
+  },
+  headerTitle: {
+    fontSize: 17,
+    fontWeight: "600",
+    color: "hsl(20 15% 10%)",
+    marginLeft: 8,
+    letterSpacing: -0.02,
+  },
+  content: {
+    paddingHorizontal: 20,
+    paddingTop: 20,
+    paddingBottom: 32,
+  },
+  card: {
+    marginBottom: 0,
+  },
+  gap: {
+    gap: 16,
+  },
 });
 
 export default function NovoClienteScreen() {
@@ -55,39 +82,45 @@ export default function NovoClienteScreen() {
   return (
     <SafeAreaView style={styles.safe}>
       <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={{ flex: 1 }}>
+        <View style={styles.header}>
+          <Button variant="ghost" size="icon" onPress={() => router.back()}>
+            <Ionicons name="arrow-back" size={22} color="hsl(20 15% 10%)" />
+          </Button>
+          <Text style={styles.headerTitle}>Novo Cliente</Text>
+        </View>
         <ScrollView>
-          <View style={styles.header}>
-            <Button variant="ghost" size="icon" onPress={() => router.back()}>
-              <Ionicons name="arrow-back" size={24} color="#000" />
-            </Button>
-            <Text style={styles.headerTitle}>Novo Cliente</Text>
+          <View style={styles.content}>
+            <Card variant="elevated" style={styles.card}>
+              <CardHeader>
+                <CardTitle>Cadastro de Cliente</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <View style={styles.gap}>
+                  <Controller control={control} name="nome" render={({ field: { onChange, onBlur, value } }) => (
+                    <Input label="Nome completo" placeholder="Maria Santos" value={value} onChangeText={onChange} onBlur={onBlur} error={errors.nome?.message} />
+                  )} />
+                  <Controller control={control} name="email" render={({ field: { onChange, onBlur, value } }) => (
+                    <Input label="Email" placeholder="maria@email.com" value={value} onChangeText={onChange} onBlur={onBlur} error={errors.email?.message} keyboardType="email-address" autoCapitalize="none" />
+                  )} />
+                  <Controller control={control} name="telefone" render={({ field: { onChange, onBlur, value } }) => (
+                    <Input label="Telefone" placeholder="(11) 99999-9999" value={value} onChangeText={onChange} onBlur={onBlur} error={errors.telefone?.message} keyboardType="phone-pad" />
+                  )} />
+                  <Controller control={control} name="cpf" render={({ field: { onChange, onBlur, value } }) => (
+                    <Input label="CPF" placeholder="000.000.000-00" value={value} onChangeText={onChange} onBlur={onBlur} error={errors.cpf?.message} keyboardType="numeric" />
+                  )} />
+                  <Controller control={control} name="endereco" render={({ field: { onChange, onBlur, value } }) => (
+                    <Input label="Endereço (opcional)" placeholder="Rua, número, bairro" value={value} onChangeText={onChange} onBlur={onBlur} error={errors.endereco?.message} />
+                  )} />
+                  <Controller control={control} name="observacoes" render={({ field: { onChange, onBlur, value } }) => (
+                    <Input label="Observações (opcional)" placeholder="Preferências, alergias, etc." value={value} onChangeText={onChange} onBlur={onBlur} error={errors.observacoes?.message} multiline />
+                  )} />
+                  <Button onPress={handleSubmit(onSubmit)} loading={loading} fullWidth>
+                    Cadastrar Cliente
+                  </Button>
+                </View>
+              </CardContent>
+            </Card>
           </View>
-          <Card>
-            <CardHeader><CardTitle>Cadastro de Cliente</CardTitle></CardHeader>
-            <CardContent>
-              <View style={styles.gap}>
-                <Controller control={control} name="nome" render={({ field: { onChange, onBlur, value } }) => (
-                  <Input label="Nome completo" placeholder="Maria Santos" value={value} onChangeText={onChange} onBlur={onBlur} error={errors.nome?.message} />
-                )} />
-                <Controller control={control} name="email" render={({ field: { onChange, onBlur, value } }) => (
-                  <Input label="Email" placeholder="maria@email.com" value={value} onChangeText={onChange} onBlur={onBlur} error={errors.email?.message} keyboardType="email-address" autoCapitalize="none" />
-                )} />
-                <Controller control={control} name="telefone" render={({ field: { onChange, onBlur, value } }) => (
-                  <Input label="Telefone" placeholder="(11) 99999-9999" value={value} onChangeText={onChange} onBlur={onBlur} error={errors.telefone?.message} keyboardType="phone-pad" />
-                )} />
-                <Controller control={control} name="cpf" render={({ field: { onChange, onBlur, value } }) => (
-                  <Input label="CPF" placeholder="000.000.000-00" value={value} onChangeText={onChange} onBlur={onBlur} error={errors.cpf?.message} keyboardType="numeric" />
-                )} />
-                <Controller control={control} name="endereco" render={({ field: { onChange, onBlur, value } }) => (
-                  <Input label="Endereço (opcional)" placeholder="Rua, número, bairro" value={value} onChangeText={onChange} onBlur={onBlur} error={errors.endereco?.message} />
-                )} />
-                <Controller control={control} name="observacoes" render={({ field: { onChange, onBlur, value } }) => (
-                  <Input label="Observações (opcional)" placeholder="Preferências, alergias, etc." value={value} onChangeText={onChange} onBlur={onBlur} error={errors.observacoes?.message} multiline />
-                )} />
-                <Button onPress={handleSubmit(onSubmit)} loading={loading}>Cadastrar Cliente</Button>
-              </View>
-            </CardContent>
-          </Card>
         </ScrollView>
       </KeyboardAvoidingView>
     </SafeAreaView>
