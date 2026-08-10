@@ -1,0 +1,143 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Funcionario {
+  id        String   @id @default(uuid())
+  nome      String
+  email     String   @unique
+  senha     String
+  cargo     String
+  telefone  String
+  endereco  String?
+  dataAdmissao DateTime @default(now())
+  ativo     Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  pedidos Pedido[]
+  pagamentos Pagamento[]
+}
+
+model Fornecedor {
+  id        String   @id @default(uuid())
+  nome      String
+  email     String   @unique
+  telefone  String
+  cnpj      String   @unique
+  endereco  String
+  produtos  String
+  observacoes String?
+  ativo     Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  pratos Prato[]
+}
+
+model Cliente {
+  id        String   @id @default(uuid())
+  nome      String
+  email     String   @unique
+  telefone  String
+  cpf       String   @unique
+  endereco  String?
+  observacoes String?
+  ativo     Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  pedidos Pedido[]
+  pagamentos Pagamento[]
+}
+
+model Prato {
+  id          String   @id @default(uuid())
+  nome        String
+  descricao   String
+  preco       Float
+  categoria   String
+  disponivel  Boolean  @default(true)
+  imagemUrl   String?
+  fornecedorId String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  fornecedor Fornecedor? @relation(fields: [fornecedorId], references: [id])
+  cardapioItems CardapioItem[]
+  itensPedido ItemPedido[]
+}
+
+model Cardapio {
+  id          String   @id @default(uuid())
+  nome        String
+  descricao   String?
+  ativo       Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  items CardapioItem[]
+}
+
+model CardapioItem {
+  id          String   @id @default(uuid())
+  cardapioId  String
+  pratoId     String
+  ordem       Int      @default(0)
+
+  cardapio Cardapio @relation(fields: [cardapioId], references: [id], onDelete: Cascade)
+  prato    Prato    @relation(fields: [pratoId], references: [id])
+
+  @@unique([cardapioId, pratoId])
+}
+
+model Pedido {
+  id          String   @id @default(uuid())
+  clienteId   String
+  funcionarioId String
+  mesa        Int
+  status      String   @default("aberto")
+  observacoes String?
+  valorTotal  Float    @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  cliente    Cliente    @relation(fields: [clienteId], references: [id])
+  funcionario Funcionario @relation(fields: [funcionarioId], references: [id])
+  itens      ItemPedido[]
+  pagamentos Pagamento[]
+}
+
+model ItemPedido {
+  id          String   @id @default(uuid())
+  pedidoId    String
+  pratoId     String
+  quantidade  Int      @default(1)
+  precoUnitario Float
+  observacoes String?
+
+  pedido Pedido @relation(fields: [pedidoId], references: [id], onDelete: Cascade)
+  prato  Prato  @relation(fields: [pratoId], references: [id])
+}
+
+model Pagamento {
+  id          String   @id @default(uuid())
+  pedidoId    String
+  clienteId   String
+  funcionarioId String
+  valor       Float
+  metodo      String
+  status      String   @default("pendente")
+  observacoes String?
+  dataPagamento DateTime @default(now())
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  pedido     Pedido     @relation(fields: [pedidoId], references: [id])
+  cliente    Cliente    @relation(fields: [clienteId], references: [id])
+  funcionario Funcionario @relation(fields: [funcionarioId], references: [id])
+}
