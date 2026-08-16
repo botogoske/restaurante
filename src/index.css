@@ -1,0 +1,77 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 40 20% 98%;
+    --foreground: 20 15% 10%;
+    --card: 0 0% 100%;
+    --card-foreground: 20 15% 10%;
+    --primary: 15 70% 35%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 35 30% 95%;
+    --secondary-foreground: 20 15% 15%;
+    --muted: 35 25% 95%;
+    --muted-foreground: 20 10% 45%;
+    --accent: 15 50% 50%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 30 20% 90%;
+    --input: 30 20% 90%;
+    --ring: 15 70% 35%;
+    --radius: 0.75rem;
+    --warm-50: 40 30% 97%;
+    --warm-100: 35 25% 94%;
+    --warm-200: 30 25% 88%;
+    --warm-300: 25 25% 80%;
+    --warm-400: 20 20% 65%;
+    --warm-500: 18 18% 50%;
+    --warm-600: 15 20% 38%;
+    --warm-700: 15 22% 28%;
+    --warm-800: 15 25% 18%;
+    --warm-900: 15 28% 10%;
+    --terracotta-50: 15 40% 96%;
+    --terracotta-100: 15 45% 90%;
+    --terracotta-200: 15 50% 80%;
+    --terracotta-300: 15 55% 68%;
+    --terracotta-400: 15 60% 55%;
+    --terracotta-500: 15 65% 42%;
+    --terracotta-600: 15 70% 35%;
+    --terracotta-700: 15 75% 28%;
+    --terracotta-800: 15 80% 22%;
+    --terracotta-900: 15 85% 16%;
+    --sage-50: 90 20% 96%;
+    --sage-100: 85 22% 90%;
+    --sage-200: 80 25% 80%;
+    --sage-300: 75 28% 68%;
+    --sage-400: 70 30% 55%;
+    --sage-500: 65 32% 42%;
+    --sage-600: 60 35% 35%;
+    --sage-700: 55 38% 28%;
+    --sage-800: 50 40% 22%;
+    --sage-900: 45 42% 16%;
+    --amber-50: 40 40% 96%;
+    --amber-100: 38 45% 90%;
+    --amber-200: 36 50% 80%;
+    --amber-300: 34 55% 68%;
+    --amber-400: 32 60% 55%;
+    --amber-500: 30 65% 42%;
+    --amber-600: 28 70% 35%;
+    --amber-700: 26 75% 28%;
+    --amber-800: 24 80% 22%;
+    --amber-900: 22 85% 16%;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}

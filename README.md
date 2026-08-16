@@ -11,5 +11,11 @@
 2. Start the app
 
    ```bash
-    npx expo start
+    npm run dev
+   ```
+
+3. Build
+
+   ```bash
+   npm run build
    ```
