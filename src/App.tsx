@@ -6,6 +6,7 @@ import Home from "./pages/Home";
 import Cadastros from "./pages/Cadastros";
 import Relatorios from "./pages/Relatorios";
 import NovoFuncionario from "./pages/funcionarios/Novo";
+import Funcionarios from "./pages/funcionarios/Index";
 import NovoFornecedor from "./pages/fornecedores/Novo";
 import NovoPrato from "./pages/pratos/Novo";
 import NovoCliente from "./pages/clientes/Novo";
@@ -35,6 +36,7 @@ export default function App() {
         <Route path="/" element={<Home />} />
         <Route path="/cadastros" element={<Cadastros />} />
         <Route path="/relatorios" element={<Relatorios />} />
+        <Route path="/funcionarios" element={<Funcionarios />} />
         <Route path="/funcionarios/novo" element={<NovoFuncionario />} />
         <Route path="/fornecedores/novo" element={<NovoFornecedor />} />
         <Route path="/pratos/novo" element={<NovoPrato />} />

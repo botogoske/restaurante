@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { Card, CardContent } from "@/components/ui/card";
 
 const cadastros = [
-  { title: "Funcionários", icon: "people", route: "/funcionarios/novo", description: "Gerenciar equipe do restaurante", color: "hsl(15 70% 35%)", bgColor: "hsl(15 40% 96%)" },
+  { title: "Funcionários", icon: "people", route: "/funcionarios", description: "Gerenciar equipe do restaurante", color: "hsl(15 70% 35%)", bgColor: "hsl(15 40% 96%)" },
   { title: "Fornecedores", icon: "business", route: "/fornecedores/novo", description: "Cadastrar fornecedores", color: "hsl(65 32% 42%)", bgColor: "hsl(90 20% 96%)" },
   { title: "Pratos", icon: "restaurant", route: "/pratos/novo", description: "Adicionar novos pratos", color: "hsl(30 65% 42%)", bgColor: "hsl(40 40% 96%)" },
   { title: "Clientes", icon: "person", route: "/clientes/novo", description: "Cadastrar clientes", color: "hsl(15 60% 55%)", bgColor: "hsl(15 40% 96%)" },

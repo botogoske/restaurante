@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { Card, CardContent } from "@/components/ui/card";
 
 const menuItems = [
-  { title: "Funcionários", icon: "people", route: "/funcionarios/novo", color: "hsl(15 70% 35%)", bgColor: "hsl(15 40% 96%)" },
+  { title: "Funcionários", icon: "people", route: "/funcionarios", color: "hsl(15 70% 35%)", bgColor: "hsl(15 40% 96%)" },
   { title: "Fornecedores", icon: "business", route: "/fornecedores/novo", color: "hsl(65 32% 42%)", bgColor: "hsl(90 20% 96%)" },
   { title: "Pratos", icon: "restaurant", route: "/pratos/novo", color: "hsl(30 65% 42%)", bgColor: "hsl(40 40% 96%)" },
   { title: "Clientes", icon: "person", route: "/clientes/novo", color: "hsl(15 60% 55%)", bgColor: "hsl(15 40% 96%)" },
