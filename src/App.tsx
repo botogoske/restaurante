@@ -12,6 +12,7 @@ import Fornecedores from "./pages/fornecedores/Index";
 import NovoPrato from "./pages/pratos/Novo";
 import Pratos from "./pages/pratos/Index";
 import NovoCliente from "./pages/clientes/Novo";
+import Clientes from "./pages/clientes/Index";
 import NovoCardapio from "./pages/cardapio/Novo";
 import NovoPedido from "./pages/pedidos/Novo";
 import NovoPagamento from "./pages/pagamentos/Novo";
@@ -44,6 +45,7 @@ export default function App() {
         <Route path="/fornecedores/novo" element={<NovoFornecedor />} />
         <Route path="/pratos" element={<Pratos />} />
         <Route path="/pratos/novo" element={<NovoPrato />} />
+        <Route path="/clientes" element={<Clientes />} />
         <Route path="/clientes/novo" element={<NovoCliente />} />
         <Route path="/cardapio/novo" element={<NovoCardapio />} />
         <Route path="/pedidos/novo" element={<NovoPedido />} />
