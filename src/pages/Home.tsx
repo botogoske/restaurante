@@ -6,7 +6,7 @@ const menuItems = [
   { title: "Fornecedores", icon: "business", route: "/fornecedores", color: "hsl(65 32% 42%)", bgColor: "hsl(90 20% 96%)" },
   { title: "Pratos", icon: "restaurant", route: "/pratos", color: "hsl(30 65% 42%)", bgColor: "hsl(40 40% 96%)" },
   { title: "Clientes", icon: "person", route: "/clientes", color: "hsl(15 60% 55%)", bgColor: "hsl(15 40% 96%)" },
-  { title: "Cardápio", icon: "book", route: "/cardapio/novo", color: "hsl(60 35% 35%)", bgColor: "hsl(90 20% 96%)" },
+  { title: "Cardápio", icon: "book", route: "/cardapio", color: "hsl(60 35% 35%)", bgColor: "hsl(90 20% 96%)" },
   { title: "Pedidos", icon: "cart", route: "/pedidos/novo", color: "hsl(15 65% 42%)", bgColor: "hsl(15 40% 96%)" },
   { title: "Pagamentos", icon: "card", route: "/pagamentos/novo", color: "hsl(65 32% 42%)", bgColor: "hsl(90 20% 96%)" },
 ];

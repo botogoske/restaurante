@@ -6,7 +6,7 @@ const cadastros = [
   { title: "Fornecedores", icon: "business", route: "/fornecedores", description: "Cadastrar fornecedores", color: "hsl(65 32% 42%)", bgColor: "hsl(90 20% 96%)" },
   { title: "Pratos", icon: "restaurant", route: "/pratos", description: "Adicionar novos pratos", color: "hsl(30 65% 42%)", bgColor: "hsl(40 40% 96%)" },
   { title: "Clientes", icon: "person", route: "/clientes", description: "Cadastrar clientes", color: "hsl(15 60% 55%)", bgColor: "hsl(15 40% 96%)" },
-  { title: "Cardápio", icon: "book", route: "/cardapio/novo", description: "Montar cardápios", color: "hsl(60 35% 35%)", bgColor: "hsl(90 20% 96%)" },
+  { title: "Cardápio", icon: "book", route: "/cardapio", description: "Montar cardápios", color: "hsl(60 35% 35%)", bgColor: "hsl(90 20% 96%)" },
   { title: "Pedidos", icon: "cart", route: "/pedidos/novo", description: "Registrar pedidos", color: "hsl(15 65% 42%)", bgColor: "hsl(15 40% 96%)" },
   { title: "Pagamentos", icon: "card", route: "/pagamentos/novo", description: "Registrar pagamentos", color: "hsl(65 32% 42%)", bgColor: "hsl(90 20% 96%)" },
 ];

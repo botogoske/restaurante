@@ -14,6 +14,7 @@ import Pratos from "./pages/pratos/Index";
 import NovoCliente from "./pages/clientes/Novo";
 import Clientes from "./pages/clientes/Index";
 import NovoCardapio from "./pages/cardapio/Novo";
+import Cardapios from "./pages/cardapio/Index";
 import NovoPedido from "./pages/pedidos/Novo";
 import NovoPagamento from "./pages/pagamentos/Novo";
 import NotFound from "./pages/NotFound";
@@ -47,6 +48,7 @@ export default function App() {
         <Route path="/pratos/novo" element={<NovoPrato />} />
         <Route path="/clientes" element={<Clientes />} />
         <Route path="/clientes/novo" element={<NovoCliente />} />
+        <Route path="/cardapio" element={<Cardapios />} />
         <Route path="/cardapio/novo" element={<NovoCardapio />} />
         <Route path="/pedidos/novo" element={<NovoPedido />} />
         <Route path="/pagamentos/novo" element={<NovoPagamento />} />
