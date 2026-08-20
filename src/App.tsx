@@ -16,6 +16,7 @@ import Clientes from "./pages/clientes/Index";
 import NovoCardapio from "./pages/cardapio/Novo";
 import Cardapios from "./pages/cardapio/Index";
 import NovoPedido from "./pages/pedidos/Novo";
+import Pedidos from "./pages/pedidos/Index";
 import NovoPagamento from "./pages/pagamentos/Novo";
 import NotFound from "./pages/NotFound";
 
@@ -50,6 +51,7 @@ export default function App() {
         <Route path="/clientes/novo" element={<NovoCliente />} />
         <Route path="/cardapio" element={<Cardapios />} />
         <Route path="/cardapio/novo" element={<NovoCardapio />} />
+        <Route path="/pedidos" element={<Pedidos />} />
         <Route path="/pedidos/novo" element={<NovoPedido />} />
         <Route path="/pagamentos/novo" element={<NovoPagamento />} />
         <Route path="*" element={<NotFound />} />
