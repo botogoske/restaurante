@@ -3,55 +3,106 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 
-const pedidos = [
-  { id: 1, cliente: "Maria Santos", mesa: 3, prato: "Filé Mignon ao Molho", quantidade: 1, total: "R$ 45,90", status: "Em preparo" },
-  { id: 2, cliente: "João Silva", mesa: 7, prato: "Salmão Grelhado", quantidade: 2, total: "R$ 105,80", status: "Entregue" },
-  { id: 3, cliente: "Ana Oliveira", mesa: 1, prato: "Risoto de Camarão", quantidade: 1, total: "R$ 48,90", status: "Aguardando" },
-  { id: 4, cliente: "Carlos Mendes", mesa: 5, prato: "Bruschetta Caprese", quantidade: 3, total: "R$ 68,70", status: "Em preparo" },
-  { id: 5, cliente: "Fernanda Lima", mesa: 2, prato: "Petit Gâteau", quantidade: 2, total: "R$ 57,80", status: "Entregue" },
-  { id: 6, cliente: "Roberto Costa", mesa: 9, prato: "X-Tudo Artesanal", quantidade: 1, total: "R$ 32,90", status: "Cancelado" },
+interface ItemPedido {
+  nome: string;
+  quantidade: number;
+  preco: string;
+}
+
+interface Pedido {
+  id: number;
+  cliente: string;
+  mesa: number;
+  itens: ItemPedido[];
+  total: string;
+  status: "Aguardando" | "Em preparo" | "Entregue" | "Cancelado";
+  horario: string;
+}
+
+const pedidos: Pedido[] = [
+  {
+    id: 1,
+    cliente: "Maria Santos",
+    mesa: 3,
+    itens: [
+      { nome: "Filé Mignon ao Molho", quantidade: 1, preco: "R$ 45,90" },
+      { nome: "Suco Natural de Laranja", quantidade: 2, preco: "R$ 19,80" },
+    ],
+    total: "R$ 65,70",
+    status: "Em preparo",
+    horario: "19:32",
+  },
+  {
+    id: 2,
+    cliente: "João Silva",
+    mesa: 7,
+    itens: [
+      { nome: "Salmão Grelhado", quantidade: 2, preco: "R$ 105,80" },
+    ],
+    total: "R$ 105,80",
+    status: "Entregue",
+    horario: "18:50",
+  },
+  {
+    id: 3,
+    cliente: "Ana Oliveira",
+    mesa: 1,
+    itens: [
+      { nome: "Bruschetta Caprese", quantidade: 1, preco: "R$ 22,90" },
+      { nome: "Risoto de Camarão", quantidade: 1, preco: "R$ 48,90" },
+      { nome: "Petit Gâteau", quantidade: 1, preco: "R$ 28,90" },
+    ],
+    total: "R$ 100,70",
+    status: "Aguardando",
+    horario: "20:05",
+  },
+  {
+    id: 4,
+    cliente: "Carlos Mendes",
+    mesa: 5,
+    itens: [
+      { nome: "Bruschetta Caprese", quantidade: 3, preco: "R$ 68,70" },
+    ],
+    total: "R$ 68,70",
+    status: "Em preparo",
+    horario: "19:48",
+  },
+  {
+    id: 5,
+    cliente: "Fernanda Lima",
+    mesa: 2,
+    itens: [
+      { nome: "Petit Gâteau", quantidade: 2, preco: "R$ 57,80" },
+      { nome: "Suco Natural de Laranja", quantidade: 2, preco: "R$ 19,80" },
+    ],
+    total: "R$ 77,60",
+    status: "Entregue",
+    horario: "18:15",
+  },
+  {
+    id: 6,
+    cliente: "Roberto Costa",
+    mesa: 9,
+    itens: [
+      { nome: "X-Tudo Artesanal", quantidade: 1, preco: "R$ 32,90" },
+    ],
+    total: "R$ 32,90",
+    status: "Cancelado",
+    horario: "20:10",
+  },
 ];
 
-const statusConfig: Record<string, { variant: "warning" | "success" | "terracotta" | "secondary"; label: string }> = {
-  "Aguardando":  { variant: "warning",    label: "Aguardando" },
-  "Em preparo":  { variant: "terracotta", label: "Em preparo" },
-  "Entregue":    { variant: "success",    label: "Entregue" },
-  "Cancelado":   { variant: "secondary",  label: "Cancelado" },
+const statusConfig: Record<Pedido["status"], { variant: "warning" | "success" | "terracotta" | "secondary"; label: string; text: string; bg: string }> = {
+  "Aguardando": { variant: "warning",    label: "Aguardando", text: "hsl(38 92% 35%)",  bg: "hsl(45 90% 96%)" },
+  "Em preparo": { variant: "terracotta", label: "Em preparo", text: "hsl(15 70% 35%)",  bg: "hsl(15 40% 96%)" },
+  "Entregue":   { variant: "success",    label: "Entregue",   text: "hsl(150 45% 32%)", bg: "hsl(150 30% 96%)" },
+  "Cancelado":  { variant: "secondary",  label: "Cancelado",  text: "hsl(0 0% 45%)",    bg: "hsl(0 0% 96%)" },
 };
 
-const statusColors: Record<string, { text: string; bg: string }> = {
-  "Aguardando":  { text: "hsl(38 92% 35%)",  bg: "hsl(45 90% 96%)" },
-  "Em preparo":  { text: "hsl(15 70% 35%)",  bg: "hsl(15 40% 96%)" },
-  "Entregue":    { text: "hsl(150 45% 32%)", bg: "hsl(150 30% 96%)" },
-  "Cancelado":   { text: "hsl(0 0% 45%)",    bg: "hsl(0 0% 96%)" },
-};
-
-function OrderIcon({ status }: { status: string }) {
-  if (status === "Aguardando") {
-    return (
-      <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-      </svg>
-    );
-  }
-  if (status === "Em preparo") {
-    return (
-      <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M17 14v6m-3-3h6M6 10h2a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v2a2 2 0 002 2zm10 0h2a2 2 0 002-2V6a2 2 0 00-2-2h-2a2 2 0 00-2 2v2a2 2 0 002 2zM6 20h2a2 2 0 002-2v-2a2 2 0 00-2-2H6a2 2 0 00-2 2v2a2 2 0 002 2z" />
-      </svg>
-    );
-  }
-  if (status === "Entregue") {
-    return (
-      <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-      </svg>
-    );
-  }
-  // Cancelado
+function MesaIcon() {
   return (
-    <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M3 10h18M3 14h18M10 6v12M14 6v12" />
     </svg>
   );
 }
@@ -78,45 +129,54 @@ export default function Pedidos() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
         {pedidos.map((pedido) => {
-          const sc = statusColors[pedido.status] || statusColors["Aguardando"];
-          const st = statusConfig[pedido.status] || statusConfig["Aguardando"];
+          const st = statusConfig[pedido.status];
           return (
             <Card key={pedido.id} variant="default" className="hover:shadow-md transition-shadow">
               <CardContent>
-                <div className="flex items-start gap-4">
-                  <div
-                    className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0"
-                    style={{ backgroundColor: sc.bg, color: sc.text }}
-                  >
-                    <OrderIcon status={pedido.status} />
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-center gap-2 mb-1">
-                      <h3 className="text-[15px] font-semibold text-foreground tracking-tight truncate">
-                        {pedido.cliente}
-                      </h3>
+                {/* Header: mesa + status */}
+                <div className="flex items-center justify-between mb-3">
+                  <div className="flex items-center gap-2">
+                    <div
+                      className="w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0"
+                      style={{ backgroundColor: st.bg, color: st.text }}
+                    >
+                      <MesaIcon />
                     </div>
-                    <p className="text-[13px] text-muted-foreground line-clamp-2 leading-5">
-                      {pedido.prato}
-                    </p>
+                    <div>
+                      <p className="text-[15px] font-semibold text-foreground leading-tight">Mesa {pedido.mesa}</p>
+                      <p className="text-[12px] text-muted-foreground">{pedido.cliente}</p>
+                    </div>
+                  </div>
+                  <div className="flex flex-col items-end gap-1">
+                    <Badge variant={st.variant}>{st.label}</Badge>
+                    <span className="text-[11px] text-muted-foreground">{pedido.horario}</span>
                   </div>
                 </div>
 
-                <div className="mt-4 pt-4 border-t border-border/20 grid grid-cols-3 gap-3">
-                  <div>
-                    <p className="text-[11px] text-muted-foreground font-medium uppercase tracking-wider mb-0.5">Total</p>
-                    <p className="text-[14px] font-bold text-foreground">{pedido.total}</p>
-                  </div>
-                  <div>
-                    <p className="text-[11px] text-muted-foreground font-medium uppercase tracking-wider mb-0.5">Mesa</p>
-                    <p className="text-[14px] font-semibold text-foreground">Mesa {pedido.mesa}</p>
-                  </div>
-                  <div className="text-right">
-                    <p className="text-[11px] text-muted-foreground font-medium uppercase tracking-wider mb-0.5">Status</p>
-                    <Badge variant={st.variant}>
-                      {st.label}
-                    </Badge>
-                  </div>
+                {/* Itens do pedido */}
+                <div className="space-y-1.5 py-3 border-t border-b border-border/20">
+                  {pedido.itens.map((item, i) => (
+                    <div key={i} className="flex items-center justify-between">
+                      <div className="flex items-center gap-2 min-w-0">
+                        <span
+                          className="w-5 h-5 rounded-md text-[11px] font-bold flex items-center justify-center flex-shrink-0"
+                          style={{ backgroundColor: st.bg, color: st.text }}
+                        >
+                          {item.quantidade}
+                        </span>
+                        <span className="text-[13px] text-foreground truncate">{item.nome}</span>
+                      </div>
+                      <span className="text-[13px] text-muted-foreground flex-shrink-0 ml-2">{item.preco}</span>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Rodapé: total */}
+                <div className="flex items-center justify-between mt-3">
+                  <p className="text-[11px] text-muted-foreground font-medium uppercase tracking-wider">
+                    {pedido.itens.reduce((sum, i) => sum + i.quantidade, 0)} {pedido.itens.reduce((sum, i) => sum + i.quantidade, 0) === 1 ? "item" : "itens"}
+                  </p>
+                  <p className="text-[15px] font-bold text-foreground">{pedido.total}</p>
                 </div>
               </CardContent>
             </Card>
